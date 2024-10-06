@@ -1,4 +1,4 @@
-import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASEURL } from "../../utils/constants";
 export const cartsApi=createApi({
     reducerPath:'cartsApi',
@@ -6,9 +6,19 @@ export const cartsApi=createApi({
     endpoints: (builder)=>({
         getCarts: builder.query({
             query: ()=> '/carts'
+        }),
+        getProducts: builder.query({
+           query: ()=>'/products'
+        }),
+        addCart: builder.mutation({
+            query: (newCart)=> ({
+                url:'/carts',
+                method: 'POST',
+                body:newCart
+            })
         })
     })
         
     
 })
-export const { useGetCartsQuery } = cartsApi
+export const { useGetCartsQuery,useGetProductsQuery,useAddCartMutation } = cartsApi
